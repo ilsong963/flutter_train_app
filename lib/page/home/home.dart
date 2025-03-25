@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/home/widget/station_select.dart';
-import 'package:flutter_train_app/page/seat_select/seat.dart';
+import 'package:flutter_train_app/page/seat_select/seat_page.dart';
 import 'package:flutter_train_app/page/statin_list/station_list_page.dart';
 
 class HomePage extends StatelessWidget {
