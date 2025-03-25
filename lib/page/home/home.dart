@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/home/widget/station_select.dart';
+import 'package:flutter_train_app/page/seat_select/seat.dart';
+import 'package:flutter_train_app/page/statin_list/station_list_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,7 +34,9 @@ class HomePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SeatPage()));
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, //change background color of button
                   backgroundColor: Colors.purple,
