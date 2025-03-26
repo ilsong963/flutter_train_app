@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SeatPage extends StatefulWidget {
-  final String? startingStation;
-  final String? destinationStation;
+  final String startingStation;
+  final String destinationStation;
 
-  const SeatPage({super.key, this.startingStation, this.destinationStation});
+  const SeatPage({
+    super.key,
+    required this.startingStation,
+    required this.destinationStation,
+  });
 
   @override
   State<SeatPage> createState() => _SeatPageState();
@@ -24,7 +28,7 @@ class _SeatPageState extends State<SeatPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  widget.startingStation ?? "출발역",
+                  widget.startingStation,
                   style: TextStyle(
                     color: Colors.purple,
                     fontSize: 30,
@@ -33,7 +37,7 @@ class _SeatPageState extends State<SeatPage> {
                 ),
                 Icon(Icons.arrow_circle_right_outlined, size: 30),
                 Text(
-                  widget.destinationStation ?? "도착역",
+                  widget.destinationStation,
                   style: TextStyle(
                     color: Colors.purple,
                     fontSize: 30,
@@ -83,10 +87,10 @@ class _SeatPageState extends State<SeatPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SeatPage()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => SeatPage()),
+                  // );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor:
