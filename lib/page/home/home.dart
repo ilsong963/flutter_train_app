@@ -33,24 +33,30 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  StationSelect(
-                    stationType: '출발역',
-                    exceptStation: destinationStation,
-                    onSelect: (station) {
-                      setState(() {
-                        startingStation = station;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: StationSelect(
+                      stationType: '출발역',
+                      exceptStation: destinationStation,
+                      onSelect: (station) {
+                        setState(() {
+                          startingStation = station;
+                        });
+                      },
+                    ),
                   ),
                   Container(height: 50, width: 2, color: Colors.grey[200]),
-                  StationSelect(
-                    stationType: '도착역',
-                    exceptStation: startingStation,
-                    onSelect: (station) {
-                      setState(() {
-                        destinationStation = station;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: StationSelect(
+                      stationType: '도착역',
+                      exceptStation: startingStation,
+                      onSelect: (station) {
+                        setState(() {
+                          destinationStation = station;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
