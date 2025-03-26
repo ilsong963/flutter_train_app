@@ -45,11 +45,11 @@ class _SeatPageState extends State<SeatPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                seat(24, Colors.purple),
+                square(24, Colors.purple),
                 SizedBox(width: 4),
                 Text('선택됨'),
                 SizedBox(width: 20),
-                seat(24, Colors.grey[300]!),
+                square(24, Colors.grey[300]!),
                 SizedBox(width: 4),
                 Text('선택안됨'),
               ],
@@ -59,17 +59,13 @@ class _SeatPageState extends State<SeatPage> {
               children:
                   ['A', 'B', ' ', 'C', 'D']
                       .map<Widget>(
-                        (element) => Padding(
+                        (alphabat) => Padding(
                           padding: EdgeInsets.symmetric(horizontal: 2),
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Center(
-                              child: Text(
-                                element,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
+                          child: square(
+                            50,
+                            Colors.transparent,
+                            text: alphabat,
+                            textStyle: TextStyle(fontSize: 18),
                           ),
                         ),
                       )
@@ -120,21 +116,31 @@ class _SeatPageState extends State<SeatPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          seat(50, Colors.grey[300]!),
+          square(50, Colors.grey[300]!),
           SizedBox(width: 4),
-          seat(50, Colors.grey[300]!),
+          square(50, Colors.grey[300]!),
           SizedBox(width: 4),
-          seat(50, Colors.white, text: index.toString()),
+          square(
+            50,
+            Colors.transparent,
+            text: index.toString(),
+            textStyle: TextStyle(fontSize: 18),
+          ),
           SizedBox(width: 4),
-          seat(50, Colors.grey[300]!),
+          square(50, Colors.grey[300]!),
           SizedBox(width: 4),
-          seat(50, Colors.grey[300]!),
+          square(50, Colors.grey[300]!),
         ],
       ),
     );
   }
 
-  Widget seat(double size, Color color, {String? text}) {
+  Widget square(
+    double size,
+    Color color, {
+    String? text,
+    TextStyle? textStyle,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: color,
@@ -142,7 +148,10 @@ class _SeatPageState extends State<SeatPage> {
       ),
       width: size,
       height: size,
-      child: text == null ? SizedBox() : Center(child: Text(text.toString())),
+      child:
+          text == null
+              ? SizedBox()
+              : Center(child: Text(text.toString(), style: textStyle)),
     );
   }
 }
