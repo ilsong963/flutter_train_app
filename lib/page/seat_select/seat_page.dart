@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SeatPage extends StatelessWidget {
-  const SeatPage({super.key});
+class SeatPage extends StatefulWidget {
+  final String? startingStation;
+  final String? destinationStation;
 
+  const SeatPage({super.key, this.startingStation, this.destinationStation});
+
+  @override
+  State<SeatPage> createState() => _SeatPageState();
+}
+
+class _SeatPageState extends State<SeatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +24,7 @@ class SeatPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "출발역",
+                  widget.startingStation ?? "출발역",
                   style: TextStyle(
                     color: Colors.purple,
                     fontSize: 30,
@@ -25,7 +33,7 @@ class SeatPage extends StatelessWidget {
                 ),
                 Icon(Icons.arrow_circle_right_outlined, size: 30),
                 Text(
-                  "도착역",
+                  widget.destinationStation ?? "도착역",
                   style: TextStyle(
                     color: Colors.purple,
                     fontSize: 30,
@@ -112,15 +120,15 @@ class SeatPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          seat(50, Colors.grey),
+          seat(50, Colors.grey[300]!),
           SizedBox(width: 4),
-          seat(50, Colors.grey),
+          seat(50, Colors.grey[300]!),
           SizedBox(width: 4),
           seat(50, Colors.white, text: index.toString()),
           SizedBox(width: 4),
-          seat(50, Colors.grey),
+          seat(50, Colors.grey[300]!),
           SizedBox(width: 4),
-          seat(50, Colors.grey),
+          seat(50, Colors.grey[300]!),
         ],
       ),
     );
