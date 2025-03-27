@@ -34,81 +34,95 @@ class _SeatPageState extends State<SeatPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  widget.startingStation,
-                  style: TextStyle(
-                    color: Colors.purple,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      widget.startingStation,
+                      style: TextStyle(
+                        color: Colors.purple,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 Icon(Icons.arrow_circle_right_outlined, size: 30),
-                Text(
-                  widget.destinationStation,
-                  style: TextStyle(
-                    color: Colors.purple,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      widget.destinationStation,
+                      style: TextStyle(
+                        color: Colors.purple,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                seatSquare(24, Colors.purple),
-                SizedBox(width: 4),
-                Text('선택됨'),
-                SizedBox(width: 20),
-                seatSquare(24, Colors.grey[300]!),
-                SizedBox(width: 4),
-                Text('선택안됨'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: getColumnList(),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  seatSquare(24, Colors.purple),
+                  SizedBox(width: 4),
+                  Text('선택됨'),
+                  SizedBox(width: 20),
+                  seatSquare(24, Colors.grey[300]!),
+                  SizedBox(width: 4),
+                  Text('선택안됨'),
+                ],
+              ),
             ),
             Expanded(
-              // GridView가 화면을 꽉 채우도록 설정
-              child: SizedBox(
-                width: 250,
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 100,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                  ),
-                  itemBuilder: (context, index) {
-                    if ((index - 2) % 5 == 0) {
-                      return textSquare("${index ~/ 5 + 1}");
-                    }
-
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          seatRow = (index ~/ 5).toString();
-                          seatColumn = (index % 5).toString();
-                        });
-                      },
-                      child: seatSquare(
-                        50,
-                        (seatRow != null &&
-                                seatColumn != null &&
-                                index ==
-                                    int.parse(seatRow!) * 5 +
-                                        int.parse(seatColumn!))
-                            ? Colors.purple
-                            : Colors.grey[300]!,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: getColumnList(),
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        crossAxisCount: 5,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        children: List.generate(100, (index) {
+                          if ((index - 2) % 5 == 0) {
+                            return textSquare("${index ~/ 5 + 1}");
+                          }
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                seatRow = (index ~/ 5).toString();
+                                seatColumn = (index % 5).toString();
+                              });
+                            },
+                            child: seatSquare(
+                              50,
+                              (seatRow != null &&
+                                      seatColumn != null &&
+                                      index ==
+                                          int.parse(seatRow!) * 5 +
+                                              int.parse(seatColumn!))
+                                  ? Colors.purple
+                                  : Colors.grey[300]!,
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ),
-
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
