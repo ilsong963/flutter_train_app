@@ -47,9 +47,15 @@ class StationListPage extends StatelessWidget {
                     ),
                   ),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    station,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      station,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               );
