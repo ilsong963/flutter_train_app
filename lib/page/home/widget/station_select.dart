@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_train_app/page/statin_list/station_list_page.dart';
+import 'package:flutter_train_app/page/station_list/station_list_page.dart';
 import 'package:go_router/go_router.dart';
 
 class StationSelect extends StatefulWidget {

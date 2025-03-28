@@ -2,7 +2,7 @@ import 'package:flutter_train_app/botton_navigation_bar_scaffold.dart';
 import 'package:flutter_train_app/page/details/details_page.dart';
 import 'package:flutter_train_app/page/home/home.dart';
 import 'package:flutter_train_app/page/seat_select/seat_page.dart';
-import 'package:flutter_train_app/page/statin_list/station_list_page.dart';
+import 'package:flutter_train_app/page/station_list/station_list_page.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
