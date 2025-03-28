@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/model/seat_model.dart';
 import 'package:go_router/go_router.dart';
 
 class SeatPage extends StatefulWidget {
@@ -19,6 +20,7 @@ class SeatPage extends StatefulWidget {
 class _SeatPageState extends State<SeatPage> {
   String? seatColumn;
   String? seatRow;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +152,12 @@ class _SeatPageState extends State<SeatPage> {
                             CupertinoDialogAction(
                               onPressed: () {
                                 context.pop();
-                                context.pop();
+                                context.pop(
+                                  SeatModel(
+                                    seatRow: seatRow!,
+                                    seatColumn: seatColumn!,
+                                  ),
+                                );
                               },
                               child: Text(
                                 "확인",
