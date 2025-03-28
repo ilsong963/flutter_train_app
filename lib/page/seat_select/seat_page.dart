@@ -132,7 +132,7 @@ class _SeatPageState extends State<SeatPage> {
                       context: context,
                       builder: (context) {
                         return CupertinoAlertDialog(
-                          title: Text("예메?"),
+                          title: Text("예매 하시겠습니까??"),
                           content: Text(
                             "좌석: ${int.parse(seatRow!) + 1}-${convertNumberToAlphbet(int.parse(seatColumn!))}",
                           ),
