@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
       body: Padding(
         padding: EdgeInsets.all(20),
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
               ),
 
               child: Row(

@@ -49,10 +49,7 @@ class _StationSelectState extends State<StationSelect> {
               widget.onSelect(station);
             });
           },
-          child: Text(
-            station ?? "선택",
-            style: TextStyle(fontSize: 40, color: Colors.black),
-          ),
+          child: Text(station ?? "선택", style: TextStyle(fontSize: 40)),
         ),
       ],
     );
