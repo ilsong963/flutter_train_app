@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/statin_list/station_list_page.dart';
+import 'package:go_router/go_router.dart';
 
 class StationSelect extends StatefulWidget {
   const StationSelect({
@@ -34,16 +35,14 @@ class _StationSelectState extends State<StationSelect> {
         ),
         TextButton(
           onPressed: () async {
-            String? selectedStation = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => StationListPage(
-                      title: widget.stationType,
-                      exceptStation: widget.exceptStation,
-                    ),
-              ),
+            String? selectedStation = await context.push(
+              '/stationList',
+              extra: {
+                "title": widget.stationType,
+                "exceptStation": widget.exceptStation,
+              },
             );
+
             setState(() {
               station = selectedStation;
               widget.onSelect(station);

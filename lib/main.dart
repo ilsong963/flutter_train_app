@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_train_app/page/home/home.dart';
+import 'package:flutter_train_app/route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
+    return MaterialApp.router(
+      routerConfig: router,
+
       themeMode: ThemeMode.light,
       theme: ThemeData(
         useMaterial3: true,

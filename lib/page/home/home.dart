@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/home/widget/station_select.dart';
 import 'package:flutter_train_app/page/seat_select/seat_page.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,16 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) {},
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wysiwyg_rounded),
-            label: "예매 내역",
-          ),
-        ],
-      ),
+
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -77,15 +69,12 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   if (startingStation != null && destinationStation != null) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) => SeatPage(
-                              startingStation: startingStation!,
-                              destinationStation: destinationStation!,
-                            ),
-                      ),
+                    context.push(
+                      '/seat',
+                      extra: {
+                        'startingStation': startingStation,
+                        'destinationStation': destinationStation,
+                      },
                     );
                   }
                 },

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SeatPage extends StatefulWidget {
   final String startingStation;
@@ -148,8 +149,8 @@ class _SeatPageState extends State<SeatPage> {
                             ),
                             CupertinoDialogAction(
                               onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
+                                context.pop();
+                                context.pop();
                               },
                               child: Text(
                                 "확인",
