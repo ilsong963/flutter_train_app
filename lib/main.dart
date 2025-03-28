@@ -23,6 +23,12 @@ class MyApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Colors.black),
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedLabelStyle: TextStyle(color: Colors.black),
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey[500],
+          unselectedLabelStyle: TextStyle(color: Colors.grey[500]),
+        ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -33,6 +39,12 @@ class MyApp extends StatelessWidget {
         cardColor: Colors.grey[800],
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Colors.white),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedLabelStyle: TextStyle(color: Colors.white),
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey[800],
+          unselectedLabelStyle: TextStyle(color: Colors.grey[800]),
         ),
       ),
     );
