@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
-import 'package:flutter_train_app/value_notifier/train_booking_value_notifier.dart';
+import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key});
+class TrainReservationDetailPage extends StatelessWidget {
+  const TrainReservationDetailPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<List<TrainBookingModel>>(
-      valueListenable: TrainBookingValueNotifier.trainBookingList,
+    return ValueListenableBuilder<List<TrainReservationModel>>(
+      valueListenable: TrainReservationValueNotifier.trainReservationList,
       builder: (context, items, child) {
         return ListView.builder(
           itemCount: items.length,

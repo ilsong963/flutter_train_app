@@ -1,6 +1,6 @@
 import 'package:flutter_train_app/botton_navigation_bar_scaffold.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
-import 'package:flutter_train_app/page/details/details_page.dart';
+import 'package:flutter_train_app/page/train_reservation_detail/train_reservation_detail_page.dart';
 import 'package:flutter_train_app/page/home/home.dart';
 import 'package:flutter_train_app/page/seat_select/seat_page.dart';
 import 'package:flutter_train_app/page/station_list/station_list_page.dart';
@@ -25,7 +25,7 @@ final router = GoRouter(
             GoRoute(
               path: '/details',
               pageBuilder: (context, state) {
-                return NoTransitionPage(child: DetailsPage());
+                return NoTransitionPage(child: TrainReservationDetailPage());
               },
             ),
           ],

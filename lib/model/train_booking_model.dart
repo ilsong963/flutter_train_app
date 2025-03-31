@@ -1,11 +1,11 @@
 import 'package:flutter_train_app/model/seat_model.dart';
 
-class TrainBookingModel {
+class TrainReservationModel {
   String startingStation;
   String destinationStation;
   SeatModel seatModel;
 
-  TrainBookingModel({
+  TrainReservationModel({
     required this.startingStation,
     required this.destinationStation,
     required this.seatModel,

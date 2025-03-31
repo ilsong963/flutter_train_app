@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/model/seat_model.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
-import 'package:flutter_train_app/value_notifier/train_booking_value_notifier.dart';
+import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
 import 'package:go_router/go_router.dart';
 
 class SeatPage extends StatefulWidget {
@@ -155,14 +155,14 @@ class _SeatPageState extends State<SeatPage> {
                               onPressed: () {
                                 context.pop();
                                 context.pop();
-                                TrainBookingValueNotifier
-                                    .trainBookingList
+                                TrainReservationValueNotifier
+                                    .trainReservationList
                                     .value = List.from(
-                                  TrainBookingValueNotifier
-                                      .trainBookingList
+                                  TrainReservationValueNotifier
+                                      .trainReservationList
                                       .value,
                                 )..add(
-                                  TrainBookingModel(
+                                  TrainReservationModel(
                                     startingStation: widget.startingStation,
                                     destinationStation:
                                         widget.destinationStation,
