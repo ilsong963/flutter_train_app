@@ -1,5 +1,4 @@
 import 'package:flutter_train_app/botton_navigation_bar_scaffold.dart';
-import 'package:flutter_train_app/model/train_booking_model.dart';
 import 'package:flutter_train_app/page/train_reservation_detail/train_reservation_detail_page.dart';
 import 'package:flutter_train_app/page/home/home.dart';
 import 'package:flutter_train_app/page/seat_select/seat_page.dart';

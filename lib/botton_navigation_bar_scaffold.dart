@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_train_app/model/train_booking_model.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomNavigationBarScaffold extends StatefulWidget {
