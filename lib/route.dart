@@ -1,4 +1,5 @@
 import 'package:flutter_train_app/botton_navigation_bar_scaffold.dart';
+import 'package:flutter_train_app/model/train_booking_model.dart';
 import 'package:flutter_train_app/page/details/details_page.dart';
 import 'package:flutter_train_app/page/home/home.dart';
 import 'package:flutter_train_app/page/seat_select/seat_page.dart';
@@ -23,16 +24,17 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/details',
-              pageBuilder:
-                  (context, state) =>
-                      const NoTransitionPage(child: DetailsPage()),
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: DetailsPage());
+              },
             ),
           ],
         ),
       ],
 
-      builder:
-          (context, state, child) => BottomNavigationBarScaffold(child: child),
+      builder: (context, state, child) {
+        return BottomNavigationBarScaffold(child: child);
+      },
     ),
     GoRoute(
       path: '/seat',
