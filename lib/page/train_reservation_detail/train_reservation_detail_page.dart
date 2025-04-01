@@ -85,7 +85,7 @@ class TrainReservationDetailPage extends StatelessWidget {
                               color: Colors.white,
                             ),
                             reservationActionButton("예매 취소", () {
-                              showChangeDialog(context, reservation, index);
+                              showRemoveDialog(context, reservation, index);
                             }),
                           ],
                         ),
