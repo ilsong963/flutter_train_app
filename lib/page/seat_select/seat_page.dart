@@ -104,8 +104,14 @@ class _SeatPageState extends State<SeatPage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        seatRow = (index ~/ 5).toString();
-                        seatColumn = (index % 5).toString();
+                        if (seatRow == (index ~/ 5).toString() &&
+                            seatColumn == (index % 5).toString()) {
+                          seatRow = null;
+                          seatColumn == null;
+                        } else {
+                          seatRow = (index ~/ 5).toString();
+                          seatColumn = (index % 5).toString();
+                        }
                       });
                     },
                     child: seatSquare(
