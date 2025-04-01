@@ -123,13 +123,7 @@ class _SeatPageState extends State<SeatPage> {
                       onPressed: () {
                         context.pop();
                         context.pop();
-                        TrainReservationValueNotifier
-                            .trainReservationList
-                            .value = List.from(
-                          TrainReservationValueNotifier
-                              .trainReservationList
-                              .value,
-                        )..add(
+                        TrainReservationValueNotifier.addReservation(
                           TrainReservationModel(
                             startingStation: widget.startingStation,
                             destinationStation: widget.destinationStation,

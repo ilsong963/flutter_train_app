@@ -14,4 +14,11 @@ class TrainReservationValueNotifier {
     updatedList.removeAt(index);
     trainReservationList.value = updatedList;
   }
+
+  static void addReservation(TrainReservationModel trainreservationModel) {
+    trainReservationList.value = [
+      ...trainReservationList.value,
+      trainreservationModel,
+    ];
+  }
 }
