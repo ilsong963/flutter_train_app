@@ -16,6 +16,10 @@ class TrainReservationDetailPage extends StatelessWidget {
         child: ValueListenableBuilder<List<TrainReservationModel>>(
           valueListenable: TrainReservationValueNotifier.trainReservationList,
           builder: (context, items, child) {
+            if (items.isEmpty) {
+              return Center(child: Text("예매한 티켓이 없습니다."));
+            }
+
             return ListView.builder(
               padding: EdgeInsets.all(16),
               itemCount: items.length,
