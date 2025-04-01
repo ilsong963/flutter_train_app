@@ -73,7 +73,9 @@ class TrainReservationDetailPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            reservationActionButton("예매 변경", () {}),
+                            reservationActionButton("예매 변경", () {
+                              showChangeDialog(context, reservation, index);
+                            }),
 
                             Container(
                               height: 30,
@@ -81,7 +83,7 @@ class TrainReservationDetailPage extends StatelessWidget {
                               color: Colors.white,
                             ),
                             reservationActionButton("예매 취소", () {
-                              showRemovedialog(context, reservation, index);
+                              showChangeDialog(context, reservation, index);
                             }),
                           ],
                         ),
@@ -97,7 +99,7 @@ class TrainReservationDetailPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showRemovedialog(
+  Future<dynamic> showRemoveDialog(
     BuildContext context,
     TrainReservationModel reservation,
     int index,
@@ -121,6 +123,46 @@ class TrainReservationDetailPage extends StatelessWidget {
               onPressed: () {
                 context.pop();
                 TrainReservationValueNotifier.removeReservation(index);
+              },
+              child: Text("확인", style: TextStyle(color: Colors.blue)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<dynamic> showChangeDialog(
+    BuildContext context,
+    TrainReservationModel reservation,
+    int index,
+  ) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text("예매를 변경 하시겠습니까??"),
+          content: Text(
+            "${reservation.startingStation} → ${reservation.destinationStation} , 좌석: ${reservation.seatModel.getSeatString()}",
+          ),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("취소", style: TextStyle(color: Colors.red)),
+              onPressed: () {
+                context.pop();
+              },
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                context.pop();
+                TrainReservationValueNotifier.removeReservation(index);
+                context.push(
+                  '/seat',
+                  extra: {
+                    'startingStation': reservation.startingStation,
+                    'destinationStation': reservation.destinationStation,
+                  },
+                );
               },
               child: Text("확인", style: TextStyle(color: Colors.blue)),
             ),
