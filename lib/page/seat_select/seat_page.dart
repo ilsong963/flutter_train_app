@@ -9,11 +9,13 @@ import 'package:go_router/go_router.dart';
 class SeatPage extends StatefulWidget {
   final String startingStation;
   final String destinationStation;
+  final TrainReservationModel? existingReservation;
 
   const SeatPage({
     super.key,
     required this.startingStation,
     required this.destinationStation,
+    this.existingReservation,
   });
 
   @override
@@ -26,6 +28,8 @@ class _SeatPageState extends State<SeatPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isEditMode = widget.existingReservation != null;
+
     return Scaffold(
       appBar: appbar(),
       body: SafeArea(
@@ -35,7 +39,7 @@ class _SeatPageState extends State<SeatPage> {
             stationRow(),
             seatColorDescription(),
             totalSeat(),
-            reservationButton(context),
+            reservationButton(context, isEditMode),
           ],
         ),
       ),
@@ -99,7 +103,7 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
-  SizedBox reservationButton(BuildContext context) {
+  SizedBox reservationButton(BuildContext context, isEditMode) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -109,7 +113,7 @@ class _SeatPageState extends State<SeatPage> {
               context: context,
               builder: (context) {
                 return CupertinoAlertDialog(
-                  title: Text("예매 하시겠습니까??"),
+                  title: Text(isEditMode ? "변경 하시겠습니까?" : "예매 하시겠습니까??"),
                   content: Text(
                     "좌석: ${convertIndexToSeat(seatRow!, seatColumn!)}",
                   ),
@@ -124,16 +128,35 @@ class _SeatPageState extends State<SeatPage> {
                       onPressed: () {
                         context.pop();
                         context.pop();
-                        TrainReservationValueNotifier.addReservation(
-                          TrainReservationModel(
-                            startingStation: widget.startingStation,
-                            destinationStation: widget.destinationStation,
-                            seatModel: SeatModel(
-                              seatRow: seatRow!,
-                              seatColumn: seatColumn!,
+
+                        if (isEditMode) {
+                          TrainReservationValueNotifier.updateReservation(
+                            widget.existingReservation!,
+                            TrainReservationModel(
+                              startingStation:
+                                  widget.existingReservation!.startingStation,
+                              destinationStation:
+                                  widget
+                                      .existingReservation!
+                                      .destinationStation,
+                              seatModel: SeatModel(
+                                seatRow: seatRow!,
+                                seatColumn: seatColumn!,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          TrainReservationValueNotifier.addReservation(
+                            TrainReservationModel(
+                              startingStation: widget.startingStation,
+                              destinationStation: widget.destinationStation,
+                              seatModel: SeatModel(
+                                seatRow: seatRow!,
+                                seatColumn: seatColumn!,
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: Text("확인", style: TextStyle(color: Colors.blue)),
                     ),
@@ -152,7 +175,7 @@ class _SeatPageState extends State<SeatPage> {
 
           textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        child: Text('예매 하기'),
+        child: Text(isEditMode ? '변경 하기' : '예매 하기'),
       ),
     );
   }

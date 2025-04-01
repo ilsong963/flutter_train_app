@@ -42,6 +42,7 @@ final router = GoRouter(
             child: SeatPage(
               startingStation: (state.extra as Map)['startingStation'],
               destinationStation: (state.extra as Map)['destinationStation'],
+              existingReservation: (state.extra as Map)['existingReservation'],
             ),
           ),
     ),

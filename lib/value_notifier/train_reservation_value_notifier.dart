@@ -21,4 +21,17 @@ class TrainReservationValueNotifier {
       trainreservationModel,
     ];
   }
+
+  static void updateReservation(
+    TrainReservationModel oldReservation,
+    TrainReservationModel updatedReservation,
+  ) {
+    trainReservationList.value =
+        trainReservationList.value.map((reservation) {
+          if (reservation == oldReservation) {
+            return updatedReservation;
+          }
+          return reservation;
+        }).toList();
+  }
 }

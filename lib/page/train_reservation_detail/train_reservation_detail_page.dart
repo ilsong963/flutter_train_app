@@ -161,12 +161,12 @@ class TrainReservationDetailPage extends StatelessWidget {
             CupertinoDialogAction(
               onPressed: () {
                 context.pop();
-                TrainReservationValueNotifier.removeReservation(index);
                 context.push(
                   '/seat',
                   extra: {
                     'startingStation': reservation.startingStation,
                     'destinationStation': reservation.destinationStation,
+                    'existingReservation': reservation,
                   },
                 );
               },
