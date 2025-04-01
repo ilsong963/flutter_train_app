@@ -34,4 +34,16 @@ class TrainReservationValueNotifier {
           return reservation;
         }).toList();
   }
+
+  static bool isReservationExist(TrainReservationModel reservation) {
+    for (var r in trainReservationList.value) {
+      if (r.startingStation == reservation.startingStation &&
+          r.destinationStation == reservation.destinationStation &&
+          r.seatModel.seatRow == reservation.seatModel.seatRow &&
+          r.seatModel.seatColumn == reservation.seatModel.seatColumn) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

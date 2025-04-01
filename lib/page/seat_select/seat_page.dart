@@ -73,9 +73,34 @@ class _SeatPageState extends State<SeatPage> {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 children: List.generate(100, (index) {
+                  if (TrainReservationValueNotifier
+                      .trainReservationList
+                      .value
+                      .isNotEmpty) {
+                    String tempSeatRow = (index ~/ 5).toString();
+                    String tempSeatColumn = (index % 5).toString();
+
+                    bool isReserved =
+                        TrainReservationValueNotifier.isReservationExist(
+                          TrainReservationModel(
+                            startingStation: widget.startingStation,
+                            destinationStation: widget.destinationStation,
+                            seatModel: SeatModel(
+                              seatRow: tempSeatRow,
+                              seatColumn: tempSeatColumn,
+                            ),
+                          ),
+                        );
+
+                    if (isReserved) {
+                      return reservatedSeatSquare();
+                    }
+                  }
+
                   if ((index - 2) % 5 == 0) {
                     return textSquare("${index ~/ 5 + 1}");
                   }
+
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -264,6 +289,23 @@ class _SeatPageState extends State<SeatPage> {
       ),
       width: size,
       height: size,
+    );
+  }
+
+  Widget reservatedSeatSquare() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[600],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      width: 50,
+      height: 50,
+      child: Center(
+        child: Text(
+          "X",
+          style: TextStyle(fontSize: 20, color: Colors.grey[400]),
+        ),
+      ),
     );
   }
 
