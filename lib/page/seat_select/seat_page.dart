@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/helper/convert_index_to_seat.dart';
 import 'package:flutter_train_app/model/seat_model.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
 import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
@@ -110,7 +111,7 @@ class _SeatPageState extends State<SeatPage> {
                 return CupertinoAlertDialog(
                   title: Text("예매 하시겠습니까??"),
                   content: Text(
-                    "좌석: ${int.parse(seatRow!) + 1}-${convertNumberToAlphbet(int.parse(seatColumn!))}",
+                    "좌석: ${convertIndexToSeat(seatRow!, seatColumn!)}",
                   ),
                   actions: [
                     CupertinoDialogAction(
@@ -206,12 +207,6 @@ class _SeatPageState extends State<SeatPage> {
           ),
         ),
       ],
-    );
-  }
-
-  String convertNumberToAlphbet(int number) {
-    return String.fromCharCode(
-      (number % 5) > 2 ? (number % 5) + 64 : (number % 5) + 65,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/helper/convert_index_to_seat.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
 import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +53,8 @@ class TrainReservationDetailPage extends StatelessWidget {
                             ),
 
                             Text(
-                              "좌석: ${reservation.seatModel.getSeatString()}",
+                              "좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
+
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[700],
@@ -110,7 +112,7 @@ class TrainReservationDetailPage extends StatelessWidget {
         return CupertinoAlertDialog(
           title: Text("예매를 취소 하시겠습니까??"),
           content: Text(
-            "${reservation.startingStation} → ${reservation.destinationStation} , 좌석: ${reservation.seatModel.getSeatString()}",
+            "${reservation.startingStation} → ${reservation.destinationStation} , 좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
           ),
           actions: [
             CupertinoDialogAction(
@@ -143,7 +145,7 @@ class TrainReservationDetailPage extends StatelessWidget {
         return CupertinoAlertDialog(
           title: Text("예매를 변경 하시겠습니까??"),
           content: Text(
-            "${reservation.startingStation} → ${reservation.destinationStation} , 좌석: ${reservation.seatModel.getSeatString()}",
+            "${reservation.startingStation} → ${reservation.destinationStation} , 좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
           ),
           actions: [
             CupertinoDialogAction(
