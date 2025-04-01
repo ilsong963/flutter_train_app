@@ -73,14 +73,14 @@ class TrainReservationDetailPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            reservationActionButton("수정하기", () {}),
+                            reservationActionButton("예매 변경", () {}),
 
                             Container(
                               height: 30,
                               width: 2,
                               color: Colors.white,
                             ),
-                            reservationActionButton("취소하기", () {
+                            reservationActionButton("예매 취소", () {
                               showRemovedialog(context, reservation, index);
                             }),
                           ],
