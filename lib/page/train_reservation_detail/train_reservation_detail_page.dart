@@ -105,7 +105,7 @@ class TrainReservationDetailPage extends StatelessWidget {
             CupertinoDialogAction(
               child: Text("취소", style: TextStyle(color: Colors.red)),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
             CupertinoDialogAction(

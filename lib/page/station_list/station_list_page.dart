@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StationListPage extends StatelessWidget {
-  StationListPage({
-    super.key,
-    required this.title,
-    required this.exceptStation,
-  });
-  final List<String> stationList = [
-    "수서",
-    "동탄",
-    "평택지제",
-    "천안아산",
-    "오송",
-    "대전",
-    "김천구미",
-    "동대구",
-    "경주",
-    "울산",
-    "부산",
-  ];
+  StationListPage({super.key, required this.title, required this.exceptStation});
+  final List<String> stationList = ["수서", "동탄", "평택지제", "천안아산", "오송", "대전", "김천구미", "동대구", "경주", "울산", "부산"];
   final String? exceptStation;
   final String? title;
 
@@ -36,26 +21,16 @@ class StationListPage extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Navigator.pop(context, station);
+                  context.pop(station);
                 },
                 child: Container(
                   height: 50,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!),
-                    ),
-                  ),
+                  decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      station,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text(station, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               );
