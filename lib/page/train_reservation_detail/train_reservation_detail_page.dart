@@ -36,58 +36,60 @@ class TrainReservationDetailPage extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${reservation.startingStation} → ${reservation.destinationStation}",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-
-                            Text(
-                              "좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
-
-                              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.purple[100],
-
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ReservationActionButton(
-                              str: "예매 변경",
-                              onTap: () {
-                                showChangeDialog(context, reservation, index);
-                              },
-                            ),
-
-                            Container(height: 30, width: 2, color: Colors.white),
-                            ReservationActionButton(
-                              str: "예매 취소",
-                              onTap: () {
-                                showRemoveDialog(context, reservation, index);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    children: [reservationDetail(reservation), cardActionbutton(context, reservation, index)],
                   ),
                 );
               },
             );
           },
         ),
+      ),
+    );
+  }
+
+  Container reservationDetail(TrainReservationModel reservation) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${reservation.startingStation} → ${reservation.destinationStation}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+          Text(
+            "좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
+
+            style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container cardActionbutton(BuildContext context, TrainReservationModel reservation, int index) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.purple[100],
+
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ReservationActionButton(
+            str: "예매 변경",
+            onTap: () {
+              showChangeDialog(context, reservation, index);
+            },
+          ),
+
+          Container(height: 30, width: 2, color: Colors.white),
+          ReservationActionButton(
+            str: "예매 취소",
+            onTap: () {
+              showRemoveDialog(context, reservation, index);
+            },
+          ),
+        ],
       ),
     );
   }

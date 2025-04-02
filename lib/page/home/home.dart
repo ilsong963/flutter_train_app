@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/home/widget/seat_selection_button.dart';
 import 'package:flutter_train_app/page/home/widget/station_select.dart';
-import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
