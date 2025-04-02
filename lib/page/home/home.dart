@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/page/home/widget/seat_selection_button.dart';
 import 'package:flutter_train_app/page/home/widget/station_select.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             stationSelectionCard(context),
             SizedBox(height: 20),
-            seatSelectionButton(context),
+            SeatSelectionButton(startingStation: startingStation, destinationStation: destinationStation, context: context),
           ],
         ),
       ),
@@ -35,10 +36,7 @@ class _HomePageState extends State<HomePage> {
   Container stationSelectionCard(BuildContext context) {
     return Container(
       height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).cardColor,
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Theme.of(context).cardColor),
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,35 +67,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  SizedBox seatSelectionButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          if (startingStation != null && destinationStation != null) {
-            context.push(
-              '/seat',
-              extra: {
-                'startingStation': startingStation,
-                'destinationStation': destinationStation,
-              },
-            );
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white, //change background color of button
-          backgroundColor: Colors.purple,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-
-          textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        child: Text('좌석 선택'),
       ),
     );
   }

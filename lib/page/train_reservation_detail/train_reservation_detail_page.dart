@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/helper/convert_index_to_seat.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
+import 'package:flutter_train_app/page/train_reservation_detail/widget/reservation_action_button.dart';
 import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,14 +32,7 @@ class TrainReservationDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 8, spreadRadius: 2, offset: Offset(0, 4))],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,19 +44,13 @@ class TrainReservationDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               "${reservation.startingStation} → ${reservation.destinationStation}",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
 
                             Text(
                               "좌석: ${convertIndexToSeat(reservation.seatModel.seatRow, reservation.seatModel.seatColumn)}",
 
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[700],
-                              ),
+                              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                             ),
                           ],
                         ),
@@ -71,26 +59,25 @@ class TrainReservationDetailPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.purple[100],
 
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            reservationActionButton("예매 변경", () {
-                              showChangeDialog(context, reservation, index);
-                            }),
-
-                            Container(
-                              height: 30,
-                              width: 2,
-                              color: Colors.white,
+                            ReservationActionButton(
+                              str: "예매 변경",
+                              onTap: () {
+                                showChangeDialog(context, reservation, index);
+                              },
                             ),
-                            reservationActionButton("예매 취소", () {
-                              showRemoveDialog(context, reservation, index);
-                            }),
+
+                            Container(height: 30, width: 2, color: Colors.white),
+                            ReservationActionButton(
+                              str: "예매 취소",
+                              onTap: () {
+                                showRemoveDialog(context, reservation, index);
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -105,11 +92,7 @@ class TrainReservationDetailPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showRemoveDialog(
-    BuildContext context,
-    TrainReservationModel reservation,
-    int index,
-  ) {
+  Future<dynamic> showRemoveDialog(BuildContext context, TrainReservationModel reservation, int index) {
     return showCupertinoDialog(
       context: context,
       builder: (context) {
@@ -138,11 +121,7 @@ class TrainReservationDetailPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showChangeDialog(
-    BuildContext context,
-    TrainReservationModel reservation,
-    int index,
-  ) {
+  Future<dynamic> showChangeDialog(BuildContext context, TrainReservationModel reservation, int index) {
     return showCupertinoDialog(
       context: context,
       builder: (context) {
@@ -175,19 +154,6 @@ class TrainReservationDetailPage extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget reservationActionButton(String str, Function() onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Text(
-          str,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-      ),
     );
   }
 }

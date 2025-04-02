@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_train_app/helper/convert_index_to_seat.dart';
 import 'package:flutter_train_app/model/seat_model.dart';
 import 'package:flutter_train_app/model/train_booking_model.dart';
+import 'package:flutter_train_app/page/seat_select/widget/seat_color_description.dart';
+import 'package:flutter_train_app/page/seat_select/widget/reservated_seat_square.dart';
+import 'package:flutter_train_app/page/seat_select/widget/seat_square.dart';
+import 'package:flutter_train_app/page/seat_select/widget/station_row.dart';
+import 'package:flutter_train_app/page/seat_select/widget/text_square.dart';
 import 'package:flutter_train_app/value_notifier/train_reservation_value_notifier.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,12 +16,7 @@ class SeatPage extends StatefulWidget {
   final String destinationStation;
   final TrainReservationModel? existingReservation;
 
-  const SeatPage({
-    super.key,
-    required this.startingStation,
-    required this.destinationStation,
-    this.existingReservation,
-  });
+  const SeatPage({super.key, required this.startingStation, required this.destinationStation, this.existingReservation});
 
   @override
   State<SeatPage> createState() => _SeatPageState();
@@ -36,8 +36,8 @@ class _SeatPageState extends State<SeatPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            stationRow(),
-            seatColorDescription(),
+            StationRow(startingStation: widget.startingStation, destinationStation: widget.destinationStation),
+            SeatColorDescription(),
             totalSeat(),
             reservationButton(context, isEditMode),
           ],
@@ -47,12 +47,7 @@ class _SeatPageState extends State<SeatPage> {
   }
 
   AppBar appbar() {
-    return AppBar(
-      title: Text('좌석 선택'),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      scrolledUnderElevation: 0,
-    );
+    return AppBar(title: Text('좌석 선택'), centerTitle: true, backgroundColor: Colors.transparent, scrolledUnderElevation: 0);
   }
 
   Expanded totalSeat() {
@@ -60,10 +55,7 @@ class _SeatPageState extends State<SeatPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: getColumnList(),
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: getColumnList()),
             SizedBox(
               width: 250,
               child: GridView.count(
@@ -73,39 +65,31 @@ class _SeatPageState extends State<SeatPage> {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 children: List.generate(100, (index) {
-                  if (TrainReservationValueNotifier
-                      .trainReservationList
-                      .value
-                      .isNotEmpty) {
+                  if (TrainReservationValueNotifier.trainReservationList.value.isNotEmpty) {
                     String tempSeatRow = (index ~/ 5).toString();
                     String tempSeatColumn = (index % 5).toString();
 
-                    bool isReserved =
-                        TrainReservationValueNotifier.isReservationExist(
-                          TrainReservationModel(
-                            startingStation: widget.startingStation,
-                            destinationStation: widget.destinationStation,
-                            seatModel: SeatModel(
-                              seatRow: tempSeatRow,
-                              seatColumn: tempSeatColumn,
-                            ),
-                          ),
-                        );
+                    bool isReserved = TrainReservationValueNotifier.isReservationExist(
+                      TrainReservationModel(
+                        startingStation: widget.startingStation,
+                        destinationStation: widget.destinationStation,
+                        seatModel: SeatModel(seatRow: tempSeatRow, seatColumn: tempSeatColumn),
+                      ),
+                    );
 
                     if (isReserved) {
-                      return reservatedSeatSquare();
+                      return ReservatedSeatSquare();
                     }
                   }
 
                   if ((index - 2) % 5 == 0) {
-                    return textSquare("${index ~/ 5 + 1}");
+                    return TextSquare(text: "${index ~/ 5 + 1}");
                   }
 
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (seatRow == (index ~/ 5).toString() &&
-                            seatColumn == (index % 5).toString()) {
+                        if (seatRow == (index ~/ 5).toString() && seatColumn == (index % 5).toString()) {
                           seatRow = null;
                           seatColumn == null;
                         } else {
@@ -114,15 +98,12 @@ class _SeatPageState extends State<SeatPage> {
                         }
                       });
                     },
-                    child: seatSquare(
-                      50,
-                      (seatRow != null &&
-                              seatColumn != null &&
-                              index ==
-                                  int.parse(seatRow!) * 5 +
-                                      int.parse(seatColumn!))
-                          ? Colors.purple
-                          : Colors.grey[300]!,
+                    child: SeatSquare(
+                      color:
+                          (seatRow != null && seatColumn != null && index == int.parse(seatRow!) * 5 + int.parse(seatColumn!))
+                              ? Colors.purple
+                              : Colors.grey[300]!,
+                      size: 50,
                     ),
                   );
                 }),
@@ -145,9 +126,7 @@ class _SeatPageState extends State<SeatPage> {
               builder: (context) {
                 return CupertinoAlertDialog(
                   title: Text(isEditMode ? "변경 하시겠습니까?" : "예매 하시겠습니까??"),
-                  content: Text(
-                    "좌석: ${convertIndexToSeat(seatRow!, seatColumn!)}",
-                  ),
+                  content: Text("좌석: ${convertIndexToSeat(seatRow!, seatColumn!)}"),
                   actions: [
                     CupertinoDialogAction(
                       child: Text("취소", style: TextStyle(color: Colors.red)),
@@ -164,16 +143,9 @@ class _SeatPageState extends State<SeatPage> {
                           TrainReservationValueNotifier.updateReservation(
                             widget.existingReservation!,
                             TrainReservationModel(
-                              startingStation:
-                                  widget.existingReservation!.startingStation,
-                              destinationStation:
-                                  widget
-                                      .existingReservation!
-                                      .destinationStation,
-                              seatModel: SeatModel(
-                                seatRow: seatRow!,
-                                seatColumn: seatColumn!,
-                              ),
+                              startingStation: widget.existingReservation!.startingStation,
+                              destinationStation: widget.existingReservation!.destinationStation,
+                              seatModel: SeatModel(seatRow: seatRow!, seatColumn: seatColumn!),
                             ),
                           );
                         } else {
@@ -181,10 +153,7 @@ class _SeatPageState extends State<SeatPage> {
                             TrainReservationModel(
                               startingStation: widget.startingStation,
                               destinationStation: widget.destinationStation,
-                              seatModel: SeatModel(
-                                seatRow: seatRow!,
-                                seatColumn: seatColumn!,
-                              ),
+                              seatModel: SeatModel(seatRow: seatRow!, seatColumn: seatColumn!),
                             ),
                           );
                         }
@@ -200,9 +169,7 @@ class _SeatPageState extends State<SeatPage> {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white, //change background color of button
           backgroundColor: Colors.purple,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
 
           textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -211,118 +178,15 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
-  Padding seatColorDescription() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          seatSquare(24, Colors.purple),
-          SizedBox(width: 4),
-          Text('선택됨'),
-          SizedBox(width: 20),
-          seatSquare(24, Colors.grey[300]!),
-          SizedBox(width: 4),
-          Text('선택안됨'),
-        ],
-      ),
-    );
-  }
-
-  Row stationRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(
-              widget.startingStation,
-              style: TextStyle(
-                color: Colors.purple,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Icon(Icons.arrow_circle_right_outlined, size: 30),
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(
-              widget.destinationStation,
-              style: TextStyle(
-                color: Colors.purple,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   List<Widget> getColumnList() {
-    List columnList = ['A', 'B', 'C', 'D'];
+    List<String> columnList = ['A', 'B', 'C', 'D'];
     List<Widget> widgetList = [];
 
     for (var i = 0; i < columnList.length; i++) {
-      widgetList.add(
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2),
-          child: textSquare(columnList[i]),
-        ),
-      );
+      widgetList.add(Padding(padding: EdgeInsets.symmetric(horizontal: 2), child: TextSquare(text: columnList[i])));
     }
 
-    widgetList.insert(
-      2,
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 2),
-        child: SizedBox(width: 50, height: 50),
-      ),
-    );
+    widgetList.insert(2, Padding(padding: EdgeInsets.symmetric(horizontal: 2), child: SizedBox(width: 50, height: 50)));
     return widgetList;
-  }
-
-  Widget seatSquare(double size, Color color) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      width: size,
-      height: size,
-    );
-  }
-
-  Widget reservatedSeatSquare() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[600],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      width: 50,
-      height: 50,
-      child: Center(
-        child: Text(
-          "X",
-          style: TextStyle(fontSize: 20, color: Colors.grey[400]),
-        ),
-      ),
-    );
-  }
-
-  Widget textSquare(String text) {
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-      width: 50,
-      height: 50,
-      child: Center(
-        child: Text(text.toString(), style: TextStyle(fontSize: 18)),
-      ),
-    );
   }
 }
